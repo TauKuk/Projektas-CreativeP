@@ -13,7 +13,9 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>    
     <script src="{{ asset('js/auto-complete.js') }}"></script>
-
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFG50XID68NkqtPsFTfc0AJzdGtYBlLQU&libraries=places&callback=initMap">
+    </script>
   
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

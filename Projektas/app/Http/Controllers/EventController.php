@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
+    private $default_picture = "uploads/default_picture.png";
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -16,11 +18,10 @@ class EventController extends Controller
 
     public function index(User $user)
     {
+        $picture = $this->default_picture;
         $events = Event::all();
 
-        $default_picture = "uploads/h64PpximusVddp3kUBJdtMwBLiwqu4lThXverfYe.png";
-
-        return view('event.index', compact('user', 'events', 'default_picture'));
+        return view('event.index', compact('user', 'events', 'picture'));
     }
 
     public function create(User $user)
@@ -30,7 +31,7 @@ class EventController extends Controller
         return view('event.create', compact('user', 'current_date'));
     }
 
-    public function store(Request $request)
+    public function store(User $user, Event $event, Request $request)
     {
         $user = Auth::user(); // Pasiimi dabartinį user ir susetini į kintamajį
 
@@ -40,7 +41,12 @@ class EventController extends Controller
 
         $data = $this->validateData();
 
-        $picture = $request->file('picture')->store('uploads', 'public');
+        if (request()->has('picture'))
+        {
+            $picture = $request->file('picture')->store('uploads', 'public'); 
+        }
+
+        else $picture = $this->default_picture;
 
         $event = auth()->user()->event()->create([
             'title' => $data['title'],
@@ -63,9 +69,9 @@ class EventController extends Controller
 
     public function show(User $user, Event $event)
     {
-        $default_picture = "uploads/h64PpximusVddp3kUBJdtMwBLiwqu4lThXverfYe.png";
+        $picture = $this->default_picture;
 
-        return view('event.show', compact('event', 'user', 'default_picture'));
+        return view('event.show', compact('event', 'user', 'picture'));
     }
 
     public function edit(User $user, Event $event)
@@ -84,7 +90,12 @@ class EventController extends Controller
     {
         $data = $this->validateData();
 
-        $picture = $request->file('picture')->store('uploads', 'public');
+        if (request()->has('picture'))
+        {
+            $picture = $request->file('picture')->store('uploads', 'public'); 
+        }
+
+        else $picture = $event->picture;
 
         $event->update([
             'title' => $data['title'],
