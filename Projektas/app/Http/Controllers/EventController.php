@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Http;
 
 class EventController extends Controller
 {
@@ -43,18 +45,22 @@ class EventController extends Controller
 
         if (request()->has('picture'))
         {
-            $picture = $request->file('picture')->store('uploads', 'public'); 
+            $picturePath = $request->file('picture')->store('uploads', 'public'); 
         }
 
-        else $picture = $this->default_picture;
+        else $picturePath = $this->default_picture;
+
+        $picture = Image::make(public_path("storage/{$picturePath}"))->fit(115, 115);
+        $picture->save();
 
         $event = auth()->user()->event()->create([
             'title' => $data['title'],
-            'place' => $data['place'],
+            'country' => $data['country'],
+            'city' => $data['city'],
             'start_date' => $data['start_date'], 
             'end_date' => $data['end_date'],
             'description' => $data['description'],
-            'picture' => $picture,
+            'picture' => $picturePath,
         ]);
 
         /*Event::create(
@@ -92,18 +98,23 @@ class EventController extends Controller
 
         if (request()->has('picture'))
         {
-            $picture = $request->file('picture')->store('uploads', 'public'); 
+            $picturePath = $request->file('picture')->store('uploads', 'public');        
+            $picture = Image::make(public_path("storage/{$picturePath}"))->fit(115, 115);
+            $picture->save(); 
         }
 
-        else $picture = $event->picture;
+        // dd($data);
+
+        else $picturePath = $event->picture;
 
         $event->update([
             'title' => $data['title'],
-            'place' => $data['place'],
+            'country' => $data['country'],
+            'city' => $data['city'],
             'start_date' => $data['start_date'], 
             'end_date' => $data['end_date'],
             'description' => $data['description'],
-            'picture' => $picture,
+            'picture' => $picturePath,
         ]);
         
         return redirect()->route('events.index', $user->id);
@@ -120,7 +131,8 @@ class EventController extends Controller
     {
         return request()->validate([
             'title' => ['required', 'string', 'max:30', 'min:1'],            
-            'place' => ['string', 'nullable', 'max:50'], 
+            'country' => ['string', 'nullable', 'max:50'],
+            'city'=> ['string', 'nullable', 'max:50'],
             'start_date' => ['required', 'date', 'after:now'],            
             'end_date' => ['required', 'date', 'after:start_date'],            
             'description' => ['string', 'nullable', 'max:255'],

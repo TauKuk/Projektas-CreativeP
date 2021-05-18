@@ -20,10 +20,13 @@ class CreateEventsTable extends Migration
             $table->unsignedBigInteger('user_id');
 
             $table->string('title');
-            $table->string('place')->nullable();
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
 
             $table->text('description')->nullable();
+
             $table->binary('picture')->nullable();
+            
             $table->dateTime('start_date', $precision = 0);
             $table->dateTime('end_date', $precision = 0);
             

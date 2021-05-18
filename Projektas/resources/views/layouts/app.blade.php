@@ -11,19 +11,20 @@
     <title>Projektas</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>    
-    <script src="{{ asset('js/auto-complete.js') }}"></script>
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFG50XID68NkqtPsFTfc0AJzdGtYBlLQU&libraries=places&callback=initMap">
-    </script>
-  
+    <script src="{{ asset('js/app.js') }}"></script>   
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> 
+    
+    <!-- Country City CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/css/select2.min.css" rel="stylesheet" />
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('event_styles.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/event_styles.css') }}" rel="stylesheet">    
+
 </head>
 
 <body>

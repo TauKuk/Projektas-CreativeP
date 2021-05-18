@@ -5,7 +5,7 @@
         <h1>Edit {{ $event->title }}</h1>
 
         <div>
-            <form action="/{{ $user->id }}/events/{{ $event->id }}" enctype="multipart/form-data" method="post">
+            <form action="/{{ $user->id }}/events/{{ $event->id }}" enctype="multipart/form-data" method="post" id="update_form">
 
                 @method('PUT')
 
@@ -15,12 +15,8 @@
                     @error('title') <div class="error"><p>{{ $message }}</p></div> @enderror
                 </div>
 
-                <div class="form-group">
-                    <label class="font-weight-bold" for="place">Event`s place</label>
-                    <input type="text" name="place" class="form-control" autocomplete="off" placeholder="Enter the event`s place" style="width: 40%;" value="{{ old('place') ?? $event->place }}">
-                    @error('place') <div class="error"><p>{{ $message }}</p></div> @enderror
-                </div>
-
+                @include("place_picker", ["form" => "update_form"])
+                
                 <div class="form-group">
                     <label class="font-weight-bold" for="start_date">Event`s start date</label>
                     <input type="datetime-local" class="form-control" name="start_date" value="{{ old('start_date') ?? $start_date }}" min="{{ $current_date }}">
@@ -35,7 +31,7 @@
 
                 <div class="form-group">
                     <label class="font-weight-bold" for="description">Event`s description</label>
-                    <textarea name="description" class="form-control" autocomplete="off" placeholder="Enter the event`s description" style="min-height: 4em; max-height: 15em;">{{old('description') ?? $event->description}}
+                    <textarea name="description" class="form-control" autocomplete="off" placeholder="Enter the event`s description" style="min-height: 4em; max-height: 10em; max-width: 60ch;">{{old('description') ?? $event->description}}
                     </textarea>
                     @error('description') <div class="error"><p>{{ $message }}</p></div> @enderror
                 </div>
@@ -49,7 +45,7 @@
                 @csrf
 
                 <button class="btn btn-primary">Confirm</button>
-                <button form="deleteForm" class="btn btn-dark">Delete profile</button> 
+                <button form="deleteForm" class="btn btn-dark">Delete Event</button> 
     
                 </form>
     

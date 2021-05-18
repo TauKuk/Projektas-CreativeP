@@ -25,7 +25,6 @@
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
-
 }
 
 #title_date{
@@ -39,6 +38,13 @@
 #title{    
     font-size: xx-large;
     line-height: 1;
+}
+
+#place
+{
+    font-size: large;
+    line-height: 1.3;
+    padding-right: 1em;
 }
 
 #date{
