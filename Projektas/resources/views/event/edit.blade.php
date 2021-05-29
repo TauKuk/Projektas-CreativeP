@@ -31,8 +31,7 @@
 
                 <div class="form-group">
                     <label class="font-weight-bold" for="description">Event`s description</label>
-                    <textarea name="description" class="form-control" autocomplete="off" placeholder="Enter the event`s description" style="min-height: 4em; max-height: 10em; max-width: 60ch;">{{old('description') ?? $event->description}}
-                    </textarea>
+                    <textarea name="description" class="form-control" autocomplete="off" placeholder="Enter the event`s description" style="min-height: 4em; max-height: 10em; max-width: 60ch;">{{old('description') ?? $event->description}}</textarea>
                     @error('description') <div class="error"><p>{{ $message }}</p></div> @enderror
                 </div>
 

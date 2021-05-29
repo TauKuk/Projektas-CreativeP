@@ -29,7 +29,8 @@ class CreateEventsTable extends Migration
             
             $table->dateTime('start_date', $precision = 0);
             $table->dateTime('end_date', $precision = 0);
-            
+
+            $table->index('user_id');
         });
     }
 

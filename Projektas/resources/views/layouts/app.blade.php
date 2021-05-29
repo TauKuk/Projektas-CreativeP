@@ -72,8 +72,6 @@
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                
-
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <li>
                                         <a class="dropdown-item" href="/{{ Auth::user()->id }}/events">

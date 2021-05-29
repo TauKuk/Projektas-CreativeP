@@ -7,7 +7,18 @@ use App\Models\Event;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Http;
+
+class Status
+{
+    var $color, $text, $image;
+
+    function __construct($eventColor, $eventText, $eventImage)
+    {
+        $this->color = $eventColor;
+        $this->text = $eventText;
+        $this->image = $eventImage;
+    }
+}
 
 class EventController extends Controller
 {
@@ -21,9 +32,22 @@ class EventController extends Controller
     public function index(User $user)
     {
         $picture = $this->default_picture;
-        $events = Event::all();
+      
+        $events = auth()->user()->event;
 
-        return view('event.index', compact('user', 'events', 'picture'));
+        //Sukuria eventu Status objekta
+        foreach($events as $event)
+        {
+            // dd(strtotime($event->start_date));
+            if (strtotime($event->start_date) > strtotime("now + 3 hours")) $eventStatus[] = new Status("blue", "Event has not started", "uploads/blue_circle.png");
+            else if (strtotime($event->start_date) <= strtotime("now + 3 hours") && strtotime($event->end_date) >= strtotime("now + 3 hours")) $eventStatus[] = new Status("green", "Event is ongoing", "uploads/green_circle.png");
+            else $eventStatus[] = new Status("red", "Event has ended", "uploads/red_circle.png");
+        }
+
+        //Susortina eventus pagal pradzios data
+        $events = $events->sortBy('start_date');
+
+        return view('event.index', compact('user', 'events', 'picture', 'eventStatus'));
     }
 
     public function create(User $user)
@@ -42,6 +66,20 @@ class EventController extends Controller
         // ofc turėtum dar tikrinti ar geri values pareina, bet kolkas tiek to
 
         $data = $this->validateData();
+
+        // Jei neranda ivestos salies, jos reiksme nustato null
+        if (!array_key_exists("country", $data))
+        {
+            $countryNull = array("country" => null);
+            $data = array_merge($data, $countryNull);
+        }  
+
+        // Jei neranda ivesto miesto, jo reiksme nustato null
+        if (!array_key_exists("city", $data))
+        {
+            $cityNull = array("city" => null);
+            $data = array_merge($data, $cityNull);
+        }  
 
         if (request()->has('picture'))
         {
@@ -63,10 +101,6 @@ class EventController extends Controller
             'picture' => $picturePath,
         ]);
 
-        /*Event::create(
-            $this->validateData()
-        );*/
-
         // jeigu viskas gerai, redirektini į route kurio vardą apsirašai prie routes 'web.php' kur yra
         // Route::get('/{user}/Events', [EventController::class, 'index'])->name('Events.show');
         // matai                ->name('Events.show') ir kaip antrą argumentą passini vartotojo ID
@@ -75,9 +109,16 @@ class EventController extends Controller
 
     public function show(User $user, Event $event)
     {
+        $index = 0;
+
+        // dd(strtotime($event->start_date));
+        if (strtotime($event->start_date) > strtotime("now + 3 hours")) $eventStatus[] = new Status("blue", "Event has not started", "uploads/blue_circle.png");
+        else if (strtotime($event->start_date) <= strtotime("now + 3 hours") && strtotime($event->end_date) >= strtotime("now + 3 hours")) $eventStatus[] = new Status("green", "Event is ongoing", "uploads/green_circle.png");
+        else $eventStatus[] = new Status("red", "Event has ended", "uploads/red_circle.png");
+
         $picture = $this->default_picture;
 
-        return view('event.show', compact('event', 'user', 'picture'));
+        return view('event.show', compact('event', 'user', 'picture', 'eventStatus', 'index'));
     }
 
     public function edit(User $user, Event $event)
@@ -107,6 +148,8 @@ class EventController extends Controller
 
         else $picturePath = $event->picture;
 
+        
+
         $event->update([
             'title' => $data['title'],
             'country' => $data['country'],
@@ -125,6 +168,11 @@ class EventController extends Controller
         $event->delete();
     
         return redirect()->route('events.index', $user->id);
+    }
+
+    private function mapStatus()
+    {
+        
     }
 
     private function validateData()

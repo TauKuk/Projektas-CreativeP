@@ -11,10 +11,10 @@
             </div>
         </div>
 
-        @forelse($events as $event)
+        @forelse($events as $index => $event)
 
         <a href="/{{ $user->id }}/events/{{ $event->id }}" id="link">
-            @include('event.show_event')
+            @include('event.display_single')
         </a>
 
         @empty

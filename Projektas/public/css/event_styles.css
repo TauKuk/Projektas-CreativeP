@@ -10,7 +10,6 @@
 #event_box{
     padding-top:1em;
     display: flex;
-    flex-wrap: nowrap;    
     justify-content: center;
     align-items: center;
 }
@@ -23,7 +22,6 @@
     flex:5;
 
     display: flex;
-    flex-wrap: nowrap;
     flex-direction: column;
 }
 
@@ -57,6 +55,11 @@
     flex:4;
 }
 
-a:hover{  
-    color:red;
+#place-status{
+    display: flex;
+    justify-content: space-between;
+}
+
+#status{
+    line-height: 0;
 }
