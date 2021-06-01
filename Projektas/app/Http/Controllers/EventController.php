@@ -35,6 +35,8 @@ class EventController extends Controller
       
         $events = auth()->user()->event;
 
+        $eventStatus = [];
+
         //Sukuria eventu Status objekta
         foreach($events as $event)
         {
@@ -110,6 +112,7 @@ class EventController extends Controller
     public function show(User $user, Event $event)
     {
         $index = 0;
+        $eventStatus = [];
 
         // dd(strtotime($event->start_date));
         if (strtotime($event->start_date) > strtotime("now + 3 hours")) $eventStatus[] = new Status("blue", "Event has not started", "uploads/blue_circle.png");
