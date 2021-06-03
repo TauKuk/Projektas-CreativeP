@@ -19,8 +19,6 @@ class EventController extends Controller
 
     public function index(User $user)
     {
-        $picture = $this->default_picture;
-      
         $events = auth()->user()->event;
 
         $eventStatus = [];
@@ -32,7 +30,7 @@ class EventController extends Controller
         //Susortina eventus pagal pradzios data
         $events = $events->sortBy('start_date');
 
-        return view('event.index', compact('user', 'events', 'picture', 'eventStatus'));
+        return view('event.index', compact('user', 'events', 'eventStatus'));
     }
 
     public function create(User $user)
@@ -68,13 +66,13 @@ class EventController extends Controller
 
         if (request()->has('picture'))
         {
-            $picturePath = $request->file('picture')->store('uploads', 'public'); 
+            $picturePath = $request->file('picture')->store('uploads', 'public');        
+
+            $picture = Image::make(public_path("storage/{$picturePath}"))->fit(115, 115);
+            $picture->save();
         }
 
-        else $picturePath = $this->default_picture;
-
-        $picture = Image::make(public_path("storage/{$picturePath}"))->fit(115, 115);
-        $picture->save();
+        else $picturePath = null;
 
         $event = auth()->user()->event()->create([
             'title' => $data['title'],
@@ -97,9 +95,7 @@ class EventController extends Controller
         $index = 0;
         $eventStatus[] = $event->CreateEventStatus($event->start_date, $event->end_date);
 
-        $picture = $this->default_picture;
-
-        return view('event.show', compact('event', 'user', 'picture', 'eventStatus', 'index'));
+        return view('event.show', compact('event', 'user', 'eventStatus', 'index'));
     }
 
     public function edit(User $user, Event $event)
@@ -131,12 +127,13 @@ class EventController extends Controller
 
         if (request()->has('picture'))
         {
-            $picturePath = $request->file('picture')->store('uploads', 'public');        
+            $picturePath = $request->file('picture')->store('uploads', 'public');    
+                
             $picture = Image::make(public_path("storage/{$picturePath}"))->fit(115, 115);
             $picture->save(); 
         }
 
-        else $picturePath = $event->picture;
+        else $picturePath = null;
 
         $event->update([
             'title' => $data['title'],
