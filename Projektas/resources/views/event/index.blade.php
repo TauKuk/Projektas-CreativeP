@@ -4,9 +4,9 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6"><h1>Events made by {{ $user->name }}</h1></div>
+            <div class="col-md-6 flex-shrink-1"><h1>Events made by {{ $user->name }}</h1></div>
 
-            <div class="col-md-6 d-flex justify-content-end" class="mb-0">
+            <div class="col-md-6 d-flex justify-content-end flex-shrink-1" class="mb-0">
                 <a href="/{{ $user->id }}/events/create"><h1>Create event</h1></a>
             </div>
         </div>

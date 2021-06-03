@@ -8,18 +8,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
-class Status
-{
-    var $color, $text, $image;
-
-    function __construct($eventColor, $eventText, $eventImage)
-    {
-        $this->color = $eventColor;
-        $this->text = $eventText;
-        $this->image = $eventImage;
-    }
-}
-
 class EventController extends Controller
 {
     private $default_picture = "uploads/default_picture.png";
@@ -38,13 +26,8 @@ class EventController extends Controller
         $eventStatus = [];
 
         //Sukuria eventu Status objekta
-        foreach($events as $event)
-        {
-            // dd(strtotime($event->start_date));
-            if (strtotime($event->start_date) > strtotime("now + 3 hours")) $eventStatus[] = new Status("blue", "Event has not started", "uploads/blue_circle.png");
-            else if (strtotime($event->start_date) <= strtotime("now + 3 hours") && strtotime($event->end_date) >= strtotime("now + 3 hours")) $eventStatus[] = new Status("green", "Event is ongoing", "uploads/green_circle.png");
-            else $eventStatus[] = new Status("red", "Event has ended", "uploads/red_circle.png");
-        }
+        foreach($events as $event) 
+            $eventStatus[] = $event->CreateEventStatus($event->start_date, $event->end_date);
 
         //Susortina eventus pagal pradzios data
         $events = $events->sortBy('start_date');
@@ -112,12 +95,7 @@ class EventController extends Controller
     public function show(User $user, Event $event)
     {
         $index = 0;
-        $eventStatus = [];
-
-        // dd(strtotime($event->start_date));
-        if (strtotime($event->start_date) > strtotime("now + 3 hours")) $eventStatus[] = new Status("blue", "Event has not started", "uploads/blue_circle.png");
-        else if (strtotime($event->start_date) <= strtotime("now + 3 hours") && strtotime($event->end_date) >= strtotime("now + 3 hours")) $eventStatus[] = new Status("green", "Event is ongoing", "uploads/green_circle.png");
-        else $eventStatus[] = new Status("red", "Event has ended", "uploads/red_circle.png");
+        $eventStatus[] = $event->CreateEventStatus($event->start_date, $event->end_date);
 
         $picture = $this->default_picture;
 
@@ -126,9 +104,6 @@ class EventController extends Controller
 
     public function edit(User $user, Event $event)
     {        
-        //dd($event->start_date);
-        //dd(date(("H:i"), strtotime( $event->start_date )));
-
         $current_date = date("Y-m-d", strtotime( "now" )) . "T" . date(("H:i"), strtotime("now + 3 hours"));
         $start_date = date("Y-m-d", strtotime( $event->start_date )) . "T" . date(("H:i"), strtotime( $event->start_date ));
         $end_date = date("Y-m-d", strtotime( $event->end_date )) . "T" . date(("H:i"), strtotime( $event->end_date ));
@@ -140,6 +115,20 @@ class EventController extends Controller
     {
         $data = $this->validateData();
 
+        // Jei neranda ivestos salies, jos reiksme nustato null
+        if (!array_key_exists("country", $data))
+        {
+            $countryNull = array("country" => null);
+            $data = array_merge($data, $countryNull);
+        }  
+
+        // Jei neranda ivesto miesto, jo reiksme nustato null
+        if (!array_key_exists("city", $data))
+        {
+            $cityNull = array("city" => null);
+            $data = array_merge($data, $cityNull);
+        }  
+
         if (request()->has('picture'))
         {
             $picturePath = $request->file('picture')->store('uploads', 'public');        
@@ -147,11 +136,7 @@ class EventController extends Controller
             $picture->save(); 
         }
 
-        // dd($data);
-
         else $picturePath = $event->picture;
-
-        
 
         $event->update([
             'title' => $data['title'],
@@ -171,11 +156,6 @@ class EventController extends Controller
         $event->delete();
     
         return redirect()->route('events.index', $user->id);
-    }
-
-    private function mapStatus()
-    {
-        
     }
 
     private function validateData()

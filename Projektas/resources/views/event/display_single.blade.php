@@ -1,28 +1,28 @@
-<div class="border-top border-dark mt-3" id="event_box">
+<div class="event_box">
 
-    <div id="image">
-        <img src='/storage/{{ $event->picture ?? "uploads/default_picture.png" }}' class="ml-3 mb-3 border border-dark">
+    <div class="image">
+        <img src='/storage/{{ $event->picture ?? "uploads/default_picture.png" }}' class="border border-dark">
     </div>
 
-    <div id="info" class="pl-2">
-        <div id="title_date">
-            <div id="title">
+    <div class="info">
+        <div class="title_date">
+            <div class="title">
             {{ $event->title }}
             </div>
             
-            <div id="date">{{ $event->start_date }} - {{ $event->end_date }}</div>
+            <div class="date">{{ $event->start_date }} - {{ $event->end_date }}</div>
         </div>
 
-        <p id="description">
+        <p class="description">
             {{ $event->description }}
             
-            <div id="place-status" style="margin-bottom: 0%;">
-                <div id="place">
-                    <div>Country: {{ $event->country }}</div> 
-                    <div>City: {{ $event->city }}</div> 
+            <div class="place-status" style="margin-bottom: 0%;">
+                <div class="place">
+                    @if($event->country) <div>Country: {{ $event->country }}</div>@endif 
+                    @if($event->city) <div>City: {{ $event->city }}</div> @endif 
                 </div>  
 
-                <div id="status">
+                <div class="status">
                     <img src="/storage/{{ $eventStatus[$index]->image }}" style="width: 0.9rem;">
                     <span style="color: {{ $eventStatus[$index]->color }};">{{ $eventStatus[$index]->text }}</span> 
                 </div>
