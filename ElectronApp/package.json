@@ -1,0 +1,20 @@
+{
+  "name": "electronapp",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+	"build": "electron-packager . ProjektasElectron --platform=all --out=dist"
+  },
+  "author": "Tautvydas Kuklys",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^13.1.1",
+    "electron-packager": "^15.2.0"
+  },
+  "dependencies": {
+    "node-php-server": "^0.1.2"
+  }
+}

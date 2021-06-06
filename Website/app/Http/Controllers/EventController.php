@@ -133,6 +133,8 @@ class EventController extends Controller
             $picture->save(); 
         }
 
+        else if ($event->picture) $picturePath = $event->picture; 
+
         else $picturePath = null;
 
         $event->update([

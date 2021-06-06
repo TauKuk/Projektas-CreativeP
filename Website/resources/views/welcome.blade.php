@@ -53,7 +53,7 @@
             @guest
                 <div class="container mt-5 mb-5">
                     <div class="row justify-content-center">
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">Already have an account? Login now!</div>
 
