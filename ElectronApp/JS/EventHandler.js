@@ -1,0 +1,168 @@
+//  const events = [
+//     {
+//         picture: "#",
+//         title: "Title1",
+//         start_date: "2021-05-06",
+//         end_date: "2025-04-04",
+//         description: "Description1",
+//         city: "Klaipeda",
+//         country: "Lithuania"
+//     },
+
+//     {
+//         picture: "#",
+//         title: "Title2",
+//         start_date: "3021-05-06",
+//         end_date: "2035-04-04",
+//         description: "Description2",
+//         city: "Albala",
+//         country: "Georgia"
+//     },
+
+//     {
+//         picture: "#",
+//         title: "Title3",
+//         start_date: "2041-05-06",
+//         end_date: "2029-04-04",
+//         description: "Description3",
+//         city: null,
+//         country: null
+//     }
+// ];
+
+// const eventStatus = [
+//     {
+//         color: "blue",
+//         text: "Event Has not started yet",
+//         image: "#"
+//     },
+
+//     {
+//         color: "green",
+//         text: "Event is ongoing",
+//         image: "#"
+//     },
+
+//     {
+//         color: "red",
+//         text: "Event has ended",
+//         image: "#"
+//     }
+// ]
+
+const head = "127.0.0.1", port = "8000";
+const URL = `http://${head}:${port}`;
+
+function updateHTML(event) {
+    eventHTML = "";
+
+    eventHTML += `
+            <a href="#" id="link">
+                <div class="event_box">
+    
+                    <div class="image">
+                        <img src='${URL}/storage/${event.picture}' class="border border-dark">
+                    </div>
+                
+                    <div class="info">
+                    <div class="title_date">
+                        <div class="title">
+                            ${event.title}
+                        </div>
+                        
+                        <div class="date">${event.start_date} - ${event.end_date}</div>
+                    </div>
+        
+                    <p class="description">
+                    ${event.description}
+                    
+                    <div class="place-status">
+                        <div class="place">
+            `;
+        
+        if (event.country != "") eventHTML += `<div>Country:  ${event.country}</div>`;
+        if (event.city != "") eventHTML += `<div>City:  ${event.city}</div>`;
+    
+        eventHTML += `
+                                <div class="pt-2">Author:  ${event.author}</div> 
+                            </div>
+                        <div class="status">
+                        <img src="${event.status.image}" style="width: 0.9rem;">
+                        <span style="color: ${event.status.color};">${event.status.text}</span> 
+                        </div>
+                    </div>
+                </p>
+                </div>
+                </div>
+            </a>
+            `;
+
+    return eventHTML;
+}
+
+function ValidateEvent(data)
+{
+    data.title = (data.title == null)? "" : data.title;
+    data.picture = (data.picture == null)? "uploads/default_picture.png" : data.picture; 
+    data.start_date = (data.start_date == null)? "" : data.start_date; 
+    data.end_date = (data.end_date == null)? "" : data.end_date; 
+    data.country = (data.country == null)? "" : data.country; 
+    data.city = (data.city == null)? "" : data.city;  
+    data.description = (data.description == null)? "" : data.description;  
+}   
+
+function CreateEventStatus(event)
+{
+    var CurrentDate = new Date(), start_date = new Date(event.start_date), end_date = new Date(event.end_date);
+
+    if (start_date > CurrentDate)
+        event.status = {
+            color: "blue",
+            text: "Event has not started",
+            image: `${URL}/storage/uploads/blue_circle.png`
+        }; 
+
+    else if (start_date <= CurrentDate && end_date >= CurrentDate)
+        event.status = {
+            color: "green",
+            text: "Event is ongoing",
+            image: `${URL}/storage/uploads/green_circle.png`
+        };  
+
+    else 
+        event.status = {
+            color: "red",
+            text: "Event has ended",
+            image: `${URL}/storage/uploads/red_circle.png`
+        };   
+} 
+
+function getEvents() {
+    var users = {};
+
+    fetch(`${URL}/api/users`)
+    .then( res => res.json() )
+    .then( data => {
+        data.forEach( user => {
+            users[user.id] = user.name;
+        });
+    });
+
+    fetch(`${URL}/api/events`)
+    .then( res => res.json() )
+    .then( data => {
+        let output = '';
+
+        data.forEach(event => {
+            ValidateEvent(event);
+            CreateEventStatus(event);
+            event.author = users[event.user_id];
+
+            output += updateHTML(event);     
+        });
+
+        document.getElementById('events').innerHTML = output;
+    });
+}
+
+getEvents();

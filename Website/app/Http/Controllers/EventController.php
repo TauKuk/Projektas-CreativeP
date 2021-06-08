@@ -10,8 +10,6 @@ use Intervention\Image\Facades\Image;
 
 class EventController extends Controller
 {
-    private $default_picture = "uploads/default_picture.png";
-
     public function __construct()
     {
         $this->middleware('auth');

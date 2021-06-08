@@ -16,7 +16,7 @@
         <p class="description">
             {{ $event->description }}
             
-            <div class="place-status" >
+            <div class="place-status">
                 <div class="place">
                     @if($event->country) <div>Country: {{ $event->country }}</div>@endif 
                     @if($event->city) <div>City: {{ $event->city }}</div> @endif 

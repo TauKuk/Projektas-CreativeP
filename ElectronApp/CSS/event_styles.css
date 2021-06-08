@@ -1,0 +1,70 @@
+#link{
+    color: black;
+    text-decoration: none;
+}
+
+#link:hover{
+    color: red;   
+}
+
+.event_box{
+    overflow: hidden;
+    padding-top:1em;
+    margin-top: 3em;
+    border-top: #333 solid 1px;
+
+    display: flex;
+}
+
+.image{
+    margin: auto 1em auto 1em;
+    margin-right: 1em;
+    margin-left: 1em;
+    flex:1;   
+}
+
+.info{
+    flex:5;
+    display: flex;
+    flex-direction: column;
+}
+
+.title_date{
+    display: flex;
+    align-items: flex-end;    
+}
+
+.title{    
+    font-size: xx-large;
+    justify-self: flex-start;
+    margin-right: 1em;
+    line-height: 1;
+}
+
+.date{
+    font-size: large;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.description{
+    flex:4;
+    flex-shrink: 0;
+}
+
+.place-status{
+    display: flex;
+    flex-shrink: 0;
+}
+
+.status{
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.place
+{
+    font-size: large;
+    flex-shrink: 0;
+    line-height: 1.3;
+}

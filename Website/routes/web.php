@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EventsAPIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,5 @@ Route::get('/{user}/events/{event}', [EventController::class, 'show']);
 Route::get('/{user}/events/{event}/edit', [EventController::class, 'edit']);
 Route::put('/{user}/events/{event}', [EventController::class, 'update']);
 Route::delete('/{user}/events/{event}', [EventController::class, 'destroy']);
+
+Route::get('/storage/uploads/{picture}', [EventsAPIController::class, 'image']);

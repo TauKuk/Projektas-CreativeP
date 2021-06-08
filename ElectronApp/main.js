@@ -14,7 +14,7 @@ function createWindow() {
         height: height,
     });
     
-    win.loadURL(serverURL);
+    win.loadFile('index.html');
 }
 
 app.whenReady().then(() => {
