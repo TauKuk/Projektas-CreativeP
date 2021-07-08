@@ -15,16 +15,9 @@ class EventsAPIController extends Controller
     }
 
     public function index_users() {
-        $users = User::all();
+        $users = User::all()->pluck('id', 'name');
 
-        $usersData = [];
-
-        foreach ($users as $user)
-        {
-            $usersData[] = (object) array("id" => $user->id, "name" => $user->name);
-        }
-
-        return response()->json($usersData);
+        return response()->json($users);
     }
 
     public function image($picture) {

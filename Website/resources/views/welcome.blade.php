@@ -8,6 +8,8 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -29,165 +31,102 @@
 
             <!-- Styles -->
             <link href="{{ asset('css/app.css') }}" rel="stylesheet">    
-        @endguest
+        @endguest        
+        
+        <link href="{{ asset('css/welcome_styles.css') }}" rel="stylesheet"></link>
     </head>
 
-    <body class="antialiased">       
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
+    <body class="antialiased">  
+        <header>
+            <div class="header">
+                <img class="logo" src="./img/logo.svg">
+                <img class="logo-text" src="./img/logo-text.png">
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-                        @endif
-                    @endauth
+                <div>
+                    @if (Route::has('login'))
+                        @auth
+                            <a href="{{ url('/home') }}" class="header-link">Home</a>
+                        @else
+                            <a href="{{ route('login') }}" class="header-link">Log in</a>
+
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="header-link">Register</a>
+                            @endif
+                        @endauth
+                        </div>
+                    @endif
                 </div>
-            @endif
-
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-
-            @guest
-                <div class="container mt-5 mb-5">
-                    <div class="row justify-content-center">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">Already have an account? Login now!</div>
-
-                                <div class="card-body">
-                                    <form method="POST" action="{{ route('login') }}">
-                                        @csrf
-
-                                        <div class="form-group row">
-                                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                                @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                                            <div class="col-md-6">
-                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                                @error('password')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <div class="col-md-6 offset-md-4">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                                    <label class="form-check-label" for="remember">
-                                                        {{ __('Remember Me') }}
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row mb-0">
-                                            <div class="col-md-8 offset-md-4">
-                                                <button type="submit" class="btn btn-primary">
-                                                    {{ __('Login') }}
-                                                </button>
-
-                                                @if (Route::has('password.request'))
-                                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                        {{ __('Forgot Your Password?') }}
-                                                    </a>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endguest
-
-                <div class="row">
-                    <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                        <img style="height: 100px;" src="/img/logo.png">
-                    </div>
-                </div>
-
-                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div class="grid grid-cols-1 md:grid-cols-2">
-                        <div class="p-6">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="#" class="underline text-gray-900 dark:text-white">Lengva</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam ex reprehenderit eveniet animi illo nemo quod beatae praesentium maxime, excepturi culpa, sunt soluta nihil tempore consequatur laudantium quos quae nulla.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="#" class="underline text-gray-900 dark:text-white">Prieinama</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae sapiente veniam sit iusto! Itaque architecto possimus, cupiditate sunt, beatae nulla quibusdam voluptatem nisi quo non porro consectetur ab molestiae corrupti!
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="#" class="underline text-gray-900 dark:text-white">Patogu</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam doloribus maiores vel illum nisi, dicta natus vitae voluptas obcaecati error minima, quisquam eius id quo ratione voluptatum, nemo rem magni.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
-                            <div class="flex items-center">
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold text-gray-900 dark:text-white">Patrauklu</div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem debitis quasi odio totam incidunt suscipit ipsum fuga id, ducimus vero corrupti, ab officiis distinctio eum impedit, nesciunt voluptatum dolores sapiente?
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                    Projektas v1.0.0 (PHP v{{ PHP_VERSION }})
+                
+            </div>
+        </header>
+        
+        <div class="intro-card">
+            <div class="intro-text">
+                <div class="intro-text-big">PLANUOK ATEITĮ DABAR</div>
+                <div class="intro-text-list">
+                    <ul>
+                        <li>Tvarkyk dienotvarkę</li>
+                        <li>Kurk Renginius</li>
+                        <li>Dalinkis su kitais</li>
+                    </ul>
                 </div>
             </div>
+            <div class="landing">
+                @guest
+                    <div>Turi paskyrą? Prisijunk!</div> 
+                    <div class="landing-form">    
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
+
+                            <label for="email">{{ __('El-pašto adresas') }}</label>
+                            <input id="email" type="email" style="font-family: 'Nunito', sans-serif;;"class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off">
+
+                            @error('email')
+                                <span style="color:orange;" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            <label for="password">{{ __('Slaptažodis') }}</label>
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                            @error('password')
+                                <span style="color:orange;" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            <div class="form-check" style="margin-top: 0.5em;">
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                <label class="form-check-label" for="remember">
+                                    {{ __('Prisimink mane') }}
+                                </label>
+                            </div>
+                    
+                            <button type="submit"  class="btn btn-warning">
+                                {{ __('Prisijungti') }}
+                            </button>
+
+                            @if (Route::has('password.request'))
+                                <a class="btn btn-link" style="color: yellow; font-size: 20px;" href="{{ route('password.request') }}">
+                                    {{ __('Pamiršai slaptažodį?') }}
+                                </a>
+                            @endif
+                        </form>
+                    </div>
+                @endguest
+            </div>
         </div>
+        
+        <footer>
+            <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
+               Schemify (PHP v{{ PHP_VERSION }})
+            </div>
+            <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
+                &copy; 2021-<?php echo date("Y"); ?> Tautvydas Kuklys
+            </div>
+        </footer>
+
     </body>
 </html>

@@ -143,9 +143,9 @@ function getEvents() {
     fetch(`${URL}/api/users`)
     .then( res => res.json() )
     .then( data => {
-        data.forEach( user => {
-            users[user.id] = user.name;
-        });
+        for (const [key, value] of Object.entries(data)) {
+            users[value] = key;  
+        }
     });
 
     fetch(`${URL}/api/events`)
