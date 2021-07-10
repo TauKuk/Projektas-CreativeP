@@ -1,4 +1,5 @@
-body {
+html, body, #app, main {
+    height: 100%;
     background-color: rgb(255, 255, 255);
 }
 
@@ -12,19 +13,22 @@ a:hover{
 
 .header {
     display: flex;
-    padding: 2em 10% 2em 10%;
+    padding: 1em 10% 1em 10%;
     align-items: center;
 }
 
 .logo {
-    height: 70px;
+    margin-right: auto;
+}
+
+.logo-image {
+    height: 60px;
 }
 
 .logo-text {
-    height: 80px;
+    height: 50px;
     margin-top: 0.5em;
-    margin-right: auto;
-    margin-left: 1em;
+    margin-left: 0.5em;
 }
 
 .header-link {
@@ -53,21 +57,35 @@ a:hover{
     transform-origin: bottom left;
 }
 
-.intro-card {
+.gradient-card {
     display: flex;
+    justify-content: center;
     overflow: hidden;
     width: 100%;
-    height: 450px;
-    align-items: center;
+    height: 500px;
     padding: 5em 10% 5em 10%;
     color: white;
     background: rgb(241,0,196);
-    background: linear-gradient(90deg, rgba(241,0,196,1) 0%, rgba(175,24,180,1) 35%, rgba(96,50,204,1) 100%);    
-    font-family: 'Bebas Neue';
+    background: linear-gradient(265deg, rgba(241,0,196,1) 0%, rgba(175,24,180,1) 35%, rgba(96,50,204,1) 100%);    
+    font-family: 'Bebas Neue', cursive;
 }
 
-.intro-text {
-    margin-right: auto;
+.form {
+    padding: 20px;
+    border: 3px solid white;  
+    outline: 5px solid white;
+    outline-offset: 5px;  
+
+    font-size: 20px;
+
+    width: 500px;
+    height: fit-content;
+    color: white;
+}
+
+.form-label {
+    margin-top: 0.5em;
+    margin-bottom: 0;
 }
 
 .intro-text-big {
@@ -78,7 +96,6 @@ a:hover{
 .intro-text-list {
     font-size: 30px;
     margin-left: 1em;
-    letter-spacing: 1px;
 }
 
 .landing {
@@ -86,6 +103,11 @@ a:hover{
     width: 30%;
 }
 
-.landing-form {
-    margin-top: 0.5em;
+.error-message {
+    color: yellow;
+    font-size: 20px;
+}
+
+.form-header {
+    font-size: 30px;
 }

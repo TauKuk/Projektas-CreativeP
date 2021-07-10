@@ -33,14 +33,16 @@
             <link href="{{ asset('css/app.css') }}" rel="stylesheet">    
         @endguest        
         
-        <link href="{{ asset('css/welcome_styles.css') }}" rel="stylesheet"></link>
+        <link href="{{ asset('css/layout_styles.css') }}" rel="stylesheet"></link>
     </head>
 
     <body class="antialiased">  
         <header>
-            <div class="header">
-                <img class="logo" src="./img/logo.svg">
-                <img class="logo-text" src="./img/logo-text.png">
+            <div class="header" style="padding: 2em 10% 2em 10%;">
+                <a href="{{ url('/') }}" class="logo">          
+                    <img class="logo-image" style="height: 80px;" src="{{ asset('/img/logo-image.svg') }}">
+                    <img class="logo-text" style="height: 70px; margin-left: 1em;" src="{{ asset('/img/logo-text.png') }}">
+                </a>
 
                 <div>
                     @if (Route::has('login'))
@@ -60,8 +62,8 @@
             </div>
         </header>
         
-        <div class="intro-card">
-            <div class="intro-text">
+        <div class="gradient-card" style="align-items: center;">
+            <div style="margin-right: auto;">
                 <div class="intro-text-big">PLANUOK ATEITĮ DABAR</div>
                 <div class="intro-text-list">
                     <ul>
@@ -74,42 +76,42 @@
             <div class="landing">
                 @guest
                     <div>Turi paskyrą? Prisijunk!</div> 
-                    <div class="landing-form">    
+                    <div style="margin-top: 0.5em;">    
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
 
-                            <label for="email">{{ __('El-pašto adresas') }}</label>
-                            <input id="email" type="email" style="font-family: 'Nunito', sans-serif;;"class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off">
+                            <label for="email" class="form-label" style="margin-top: 0;">{{ __('El-pašto adresas') }}</label>
+                            <input id="email" type="email" style="font-family: 'Nunito', sans-serif;"class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off">
 
                             @error('email')
-                                <span style="color:orange;" role="alert">
+                                <div class="error-message" role="alert">
                                     <strong>{{ $message }}</strong>
-                                </span>
+                                </div>
                             @enderror
 
-                            <label for="password">{{ __('Slaptažodis') }}</label>
+                            <label for="password" class="form-label">{{ __('Slaptažodis') }}</label>
                             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                             @error('password')
-                                <span style="color:orange;" role="alert">
+                                <div class="error-message" role="alert">
                                     <strong>{{ $message }}</strong>
-                                </span>
+                                </div>
                             @enderror
 
-                            <div class="form-check" style="margin-top: 0.5em;">
-                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                            <div class="form-check form-label">
+                                <input class="form-check-input" style="margin-top: 0.5em;" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                 <label class="form-check-label" for="remember">
-                                    {{ __('Prisimink mane') }}
+                                    {{ __('Prisiminti paskyrą') }}
                                 </label>
                             </div>
                     
-                            <button type="submit"  class="btn btn-warning">
+                            <button type="submit"  class="btn btn-warning form-label">
                                 {{ __('Prisijungti') }}
                             </button>
 
                             @if (Route::has('password.request'))
-                                <a class="btn btn-link" style="color: yellow; font-size: 20px;" href="{{ route('password.request') }}">
+                                <a class="error-message form-label" href="{{ route('password.request') }}" style="margin-left: 0.5em;">
                                     {{ __('Pamiršai slaptažodį?') }}
                                 </a>
                             @endif
@@ -119,14 +121,6 @@
             </div>
         </div>
         
-        <footer>
-            <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-               Schemify (PHP v{{ PHP_VERSION }})
-            </div>
-            <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                &copy; 2021-<?php echo date("Y"); ?> Tautvydas Kuklys
-            </div>
-        </footer>
-
+        @include('footer')
     </body>
 </html>
