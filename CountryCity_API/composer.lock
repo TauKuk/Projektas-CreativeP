@@ -637,12 +637,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/error-handler.git",
-                "reference": "af33ac64c169eae81cc5dd3e09b15d3e4bb45432"
+                "reference": "d61b2014f28a689f1f44a402d01e9fc018c78ff2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/error-handler/zipball/af33ac64c169eae81cc5dd3e09b15d3e4bb45432",
-                "reference": "af33ac64c169eae81cc5dd3e09b15d3e4bb45432",
+                "url": "https://api.github.com/repos/symfony/error-handler/zipball/d61b2014f28a689f1f44a402d01e9fc018c78ff2",
+                "reference": "d61b2014f28a689f1f44a402d01e9fc018c78ff2",
                 "shasum": ""
             },
             "require": {
@@ -697,7 +697,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-06-30T14:18:39+00:00"
+            "time": "2021-07-10T09:03:07+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1019,12 +1019,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "22ebd0adf8f09e8c7d442059d1429064e8eb2728"
+                "reference": "48fde7b6bbf8513f479dad6534e22090dae38dad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/22ebd0adf8f09e8c7d442059d1429064e8eb2728",
-                "reference": "22ebd0adf8f09e8c7d442059d1429064e8eb2728",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/48fde7b6bbf8513f479dad6534e22090dae38dad",
+                "reference": "48fde7b6bbf8513f479dad6534e22090dae38dad",
                 "shasum": ""
             },
             "require": {
@@ -1120,7 +1120,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-04T10:33:14+00:00"
+            "time": "2021-07-10T10:33:50+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
