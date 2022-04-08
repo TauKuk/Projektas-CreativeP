@@ -59,7 +59,7 @@
             </div>
 
             <div class="form-label">
-                <button type="submit" class="btn btn-warning">
+                <button type="submit" class="btn btn-warning" style="margin-top: 0.3em;">
                     {{ __('Registruotis') }}
                 </button>
             </div>

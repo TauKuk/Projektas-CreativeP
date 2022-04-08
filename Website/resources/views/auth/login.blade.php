@@ -55,7 +55,7 @@
                     </button>
 
                     @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}" style="color: yellow; margin-left: 0.5em;">
+                        <a href="{{ route('password.request') }}" style="margin-left: 0.5em;" class="error-message">
                             {{ __('Pamiršai slaptažodį?') }}
                         </a>
                     @endif
