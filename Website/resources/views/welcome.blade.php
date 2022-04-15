@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Projektas</title>
+        <title>Schemify</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -25,15 +25,16 @@
         @guest
             <!-- CSRF Token -->
             <meta name="csrf-token" content="{{ csrf_token() }}">
+        @endguest    
 
-            <!-- Scripts -->
-            <script src="{{ asset('js/app.js') }}"></script>   
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}"></script>   
 
-            <!-- Styles -->
-            <link href="{{ asset('css/app.css') }}" rel="stylesheet">    
-        @endguest        
-        
+        <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">   
+
         <link href="{{ asset('css/layout_styles.css') }}" rel="stylesheet"></link>
+
     </head>
 
     <body class="antialiased">  
@@ -47,12 +48,14 @@
                 <div>
                     @if (Route::has('login'))
                         @auth
-                            <a href="{{ url('/home') }}" class="header-link">Home</a>
+                            <a href="{{ url('/home') }}" class="header-link underscore-animation">Events</a>
+                            
                         @else
-                            <a href="{{ route('login') }}" class="header-link">Log in</a>
+                            <a href="{{ route('login') }}" class="header-link underscore-animation">Log in</a>
+                            
 
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="header-link">Register</a>
+                                <a href="{{ route('register') }}" class="header-link underscore-animation">Register</a>
                             @endif
                         @endauth
                         </div>
@@ -73,51 +76,84 @@
                     </ul>
                 </div>
             </div>
+
             <div class="landing">
-                @guest
-                    <div>Turi paskyrą? Prisijunk!</div> 
-                    <div style="margin-top: 0.5em;">    
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
 
-                            <label for="email" class="form-label" style="margin-top: 0;">{{ __('El-pašto adresas') }}</label>
-                            <input id="email" type="email" style="font-family: 'Nunito', sans-serif;"class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off">
+                @if (Route::has('login'))
+                    @auth
+                        <div style="font-size: 2.5rem; ">
+                           <img class="white-svg" src="{{ asset('img/user-icon.svg') }}" alt="user icon">
+                           {{ Auth::user()->name }}
+                        </div>
 
-                            @error('email')
-                                <div class="error-message" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-
-                            <label for="password" class="form-label">{{ __('Slaptažodis') }}</label>
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                            @error('password')
-                                <div class="error-message" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-
-                            <div class="form-check form-label">
-                                <input class="form-check-input" style="margin-top: 0.5em;" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                <label class="form-check-label" for="remember">
-                                    {{ __('Prisiminti paskyrą') }}
-                                </label>
-                            </div>
-                    
-                            <button type="submit"  class="btn btn-warning form-label">
-                                {{ __('Prisijungti') }}
-                            </button>
-
-                            @if (Route::has('password.request'))
-                                <a class="error-message form-label" href="{{ route('password.request') }}" style="margin-left: 0.5em;">
-                                    {{ __('Pamiršai slaptažodį?') }}
+                        <div style="margin-top: 0.5em; margin-left:1em;">
+                            <div style="margin-bottom: 0.2em;">
+                                <a href="/{{ Auth::user()->id }}/events" class="landing-link-animation">
+                                    <img class="white-svg" src="{{ asset('img/events-icon.svg') }}" alt="events icon">
+                                    <span class="landing-link">Events</span>
                                 </a>
-                            @endif
-                        </form>
-                    </div>
-                @endguest
+                            </div>
+
+                            <div style="margin-bottom: 0.2em;">
+                                <a href="/users/{{ Auth::user()->id }}" class="landing-link-animation">
+                                    <img style="" class="white-svg" src="{{ asset('img/info-icon.svg') }}" alt="info icon">
+                                    <span class="landing-link">User Info</span>
+                                </a>
+                            </div>
+
+                            <div style="margin-left: 0.1em;"> 
+                                <a href="{{ route('logout') }}" class="landing-link-animation">
+                                    <img style="" class="white-svg" src="{{ asset('img/logout-icon.svg') }}" alt="log out icon">
+                                    <span class="landing-link">Log Out</span>
+                                </a>
+                            </div>
+                        </div>
+
+                    @else
+                        <div>Turi paskyrą? Prisijunk!</div> 
+                        <div style="margin-top: 0.5em;">    
+                            <form method="POST" action="{{ route('login') }}">
+                                @csrf
+
+                                <label for="email" class="form-label" style="margin-top: 0;">{{ __('El-pašto adresas') }}</label>
+                                <input id="email" type="email" class="normalise-font form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off">
+
+                                @error('email')
+                                    <div class="error-message" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </div>
+                                @enderror
+
+                                <label for="password" class="form-label">{{ __('Slaptažodis') }}</label>
+                                <input id="password" type="password" class="normalise-font form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                                @error('password')
+                                    <div class="error-message" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </div>
+                                @enderror
+
+                                <div class="form-check form-label">
+                                    <input class="form-check-input" style="margin-top: 0.5em;" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                    <label class="form-check-label" for="remember">
+                                        {{ __('Prisiminti paskyrą') }}
+                                    </label>
+                                </div>
+                        
+                                <button type="submit"  class="btn btn-warning form-label">
+                                    {{ __('Prisijungti') }}
+                                </button>
+
+                                @if (Route::has('password.request'))
+                                    <a class="ytb-animation form-label" href="{{ route('password.request') }}" style="margin-left: 0.5em;">
+                                        {{ __('Pamiršai slaptažodį?') }}
+                                    </a>
+                                @endif
+                            </form> 
+                        </div>
+                    @endauth
+                @endif
             </div>
         </div>
         

@@ -11,8 +11,8 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "electron": "^13.1.1",
-    "electron-packager": "^15.2.0"
+    "electron": "^13.6.9",
+    "electron-packager": "^15.4.0"
   },
   "dependencies": {
     "node-php-server": "^0.1.2"

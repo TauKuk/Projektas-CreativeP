@@ -11,6 +11,10 @@ a:hover{
     color:black;
 }
 
+.normalise-font {
+    font-family: 'Nunito', sans-serif;
+}
+
 .header {
     display: flex;
     padding: 1em 10% 1em 10%;
@@ -38,8 +42,12 @@ a:hover{
     position: relative;
     color: black;
 }
-  
-.header-link::after {
+
+.underscore-animation {
+    display: inline;
+}
+
+.underscore-animation::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -52,9 +60,41 @@ a:hover{
     transition: transform 0.25s ease-out;
 }
   
-.header-link:hover::after {
+.underscore-animation:hover::after, .underscore-animation:focus::after {
     transform: scaleX(1);
     transform-origin: bottom left;
+}
+
+.landing-link-animation > span {
+    position: relative;
+}
+
+.landing-link-animation > span::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+  
+.landing-link-animation:hover > span::after, .landing-link-animation:focus > span::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.ytb-animation {
+    color: yellow;
+    font-size: 20px;
+    transition: color 0.15s;
+}
+
+.ytb-animation:hover, .ytb-animation:active {
+    color: black;
 }
 
 .gradient-card {
@@ -104,10 +144,26 @@ a:hover{
 }
 
 .error-message {
+    font-family: "Nunito", sans-serif;
     color: yellow;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .form-header {
     font-size: 30px;
+}
+
+.white-svg {
+    height: 45px;
+    margin-right: 0.2em; 
+    margin-top: 0.05em;
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(133deg) brightness(109%) contrast(101%);
+}
+
+.landing-link {
+    color:white
+}
+
+.landing-link:hover {
+    color:white
 }

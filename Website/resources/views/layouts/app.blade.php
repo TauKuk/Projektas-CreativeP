@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Projektas</title>
+    <title>Schemify</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>   
@@ -48,32 +48,31 @@
                             <img class="logo-text" src="{{ asset('/img/logo-text.png') }}">
                         </a>
                 </div>
-                
+
+                @auth                                 
+                    <a class="header-link underscore-animation" style="display:block;" href="/{{ Auth::user()->id }}/events">Events</a>
+                @endauth
+
                 <div>
                     <div>
                         <!-- Right Side Of Navbar -->
                             <!-- Authentication Links -->
                             @guest
                                 @if (Route::has('login'))
-                                        <a class="header-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                        <a class="header-link underscore-animation" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 @endif
                                 
                                 @if (Route::has('register'))
-                                        <a class="header-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                        <a class="header-link underscore-animation" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 @endif
-                            @else
+                            @else                                    
+
                                 <li>
                                     <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }}
                                     </a>
 
                                     <ul>
-                                        <li>
-                                            <a  href="/{{ Auth::user()->id }}/events">
-                                                Events
-                                            </a>
-                                        </li>
-
                                         <li>
                                             <a href="/users/{{ Auth::user()->id }}">
                                                 User Info

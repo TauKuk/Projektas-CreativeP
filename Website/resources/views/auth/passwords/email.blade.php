@@ -19,7 +19,7 @@
                     <label for="email" class="form-label">{{ __('El-pašto adresas') }}</label>
 
                     <div>
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <input id="email" type="email" class="normalise-font form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                         @error('email')
                             <div role="alert" class="error-message">

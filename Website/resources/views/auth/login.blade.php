@@ -12,7 +12,7 @@
                 <label for="email" class="form-label">{{ __('El-pašto adresas') }}</label>
 
                 <div>
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" style="font-family: 'Nunito', sans-serif;" required autocomplete="off" autofocus>
+                    <input id="email" type="email" class="normalise-font form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" style="font-family: 'Nunito', sans-serif;" required autocomplete="off" autofocus>
 
                     @error('email')
                         <div role="alert" class="error-message">
@@ -26,7 +26,7 @@
                 <label for="password" class="form-label">{{ __('Slaptažodis') }}</label>
 
                 <div>
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                    <input id="password" type="password" class="normalise-font form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                     @error('password')
                         <div role="alert" class="error-message">
@@ -55,7 +55,7 @@
                     </button>
 
                     @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}" style="margin-left: 0.5em;" class="error-message">
+                        <a href="{{ route('password.request') }}" style="margin-left: 0.5em;" class="ytb-animation">
                             {{ __('Pamiršai slaptažodį?') }}
                         </a>
                     @endif
