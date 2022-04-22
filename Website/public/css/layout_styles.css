@@ -1,4 +1,4 @@
-html, body, #app, main {
+html, body, #app {
     height: 100%;
     background-color: rgb(255, 255, 255);
 }
@@ -166,4 +166,103 @@ a:hover{
 
 .landing-link:hover {
     color:white
+}
+
+.nav-ul {
+    margin: 0;
+}
+
+.nav-listitem {    
+    margin: 0.7em 0 0 0;
+    padding-bottom: 0.7em; 
+    list-style: none;
+    font-size:large;
+    font-family: 'Nunito', sans-serif;
+    position: relative;
+    cursor: pointer;
+}
+
+.nav-listitem:hover ul, .nav-listitem:hover ul{    
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-listitemdrop { 
+    z-index: 5;
+    position: absolute;
+    top: 2.5rem;
+    left: -1rem;
+
+    padding: 0.5em 1em;
+    width: 8em;
+    background-color: white;
+    box-shadow: 2px 0 10px #494b4e;
+    border-radius: 0.2rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 200ms ease-in-out;
+}
+
+.nav-listitemdrop li{ 
+    list-style: none;
+}
+
+.nav-listitemdrop li a{    
+    position: relative;
+    color: black;
+}
+
+.nav-animation .nav-animationline::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+  
+.nav-animation:hover  .nav-animationline::after, .nav-animation:focus .nav-animationline::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+main {
+    background: rgb(241,0,196);
+    background: linear-gradient(265deg, rgba(241,0,196,1) 0%, rgba(175,24,180,1) 35%, rgba(96,50,204,1) 100%);        
+    padding: 3em 0;
+}
+
+.container {
+    height: 100%;
+    background-color: white;
+    padding: 2em;
+    border-radius: 0.3rem;
+}
+
+.edit-user input{
+    border: black 2px solid;
+    border-radius: 0.2rem;
+}
+
+.select2 .select2-container .select2-container--default {
+    width: 100%;
+}
+
+.event-form {
+    width: 40%;
+}
+
+@media only screen and (max-width: 1199px){
+    .event-form {
+        width: 100%;
+    }
 }

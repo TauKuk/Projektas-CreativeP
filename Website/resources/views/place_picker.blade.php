@@ -96,3 +96,18 @@
 		data: null,
 	});
 </script> 
+
+<script type="text/javascript">		
+	let countrycitycontainer = document.getElementsByClassName("select2-container");
+
+	for (let i = 0 ; i < countrycitycontainer.length; i++) {
+		countrycitycontainer[i].style.width = "100%";
+	}
+
+	window.addEventListener('resize', () => {
+		for (let i = 0 ; i < countrycitycontainer.length; i++) {
+			countrycitycontainer[i].style.width = "100%";
+		}
+	})
+	
+</script> 

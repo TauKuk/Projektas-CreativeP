@@ -48,14 +48,14 @@
                 <div>
                     @if (Route::has('login'))
                         @auth
-                            <a href="{{ url('/home') }}" class="header-link underscore-animation">Events</a>
+                            <a href="{{ url('/home') }}" class="header-link underscore-animation">Renginiai</a>
                             
                         @else
-                            <a href="{{ route('login') }}" class="header-link underscore-animation">Log in</a>
+                            <a href="{{ route('login') }}" class="header-link underscore-animation">Prisijungti</a>
                             
 
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="header-link underscore-animation">Register</a>
+                                <a href="{{ route('register') }}" class="header-link underscore-animation">Registruotis</a>
                             @endif
                         @endauth
                         </div>
@@ -90,22 +90,28 @@
                             <div style="margin-bottom: 0.2em;">
                                 <a href="/{{ Auth::user()->id }}/events" class="landing-link-animation">
                                     <img class="white-svg" src="{{ asset('img/events-icon.svg') }}" alt="events icon">
-                                    <span class="landing-link">Events</span>
+                                    <span class="landing-link">Renginiai</span>
                                 </a>
                             </div>
 
                             <div style="margin-bottom: 0.2em;">
                                 <a href="/users/{{ Auth::user()->id }}" class="landing-link-animation">
                                     <img style="" class="white-svg" src="{{ asset('img/info-icon.svg') }}" alt="info icon">
-                                    <span class="landing-link">User Info</span>
+                                    <span class="landing-link">Vartotojo duomenys</span>
                                 </a>
                             </div>
 
                             <div style="margin-left: 0.1em;"> 
-                                <a href="{{ route('logout') }}" class="landing-link-animation">
+                                <a href="{{ route('logout') }}" class="landing-link-animation" 
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
                                     <img style="" class="white-svg" src="{{ asset('img/logout-icon.svg') }}" alt="log out icon">
-                                    <span class="landing-link">Log Out</span>
-                                </a>
+                                    <span class="landing-link">{{ __('Atsijungti') }}</span>
+                                </a> 
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                                </form>  
                             </div>
                         </div>
 
@@ -115,7 +121,7 @@
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
 
-                                <label for="email" class="form-label" style="margin-top: 0;">{{ __('El-pašto adresas') }}</label>
+                                <label for="email" class="form-label" style="margin-top: 0;">{{ __('El. pašto adresas') }}</label>
                                 <input id="email" type="email" class="normalise-font form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off">
 
                                 @error('email')

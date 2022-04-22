@@ -1,24 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
+    @if ($user->id == Auth::user()->id)
+    <main> 
+        <div class = "container">
+            <h1>
+                Vartotojo duomenys
+            </h1>
 
-    <div class = "container">
-        <h1>
-            User info
-        </h1>
-
-        <div>
-            <strong>Name</strong>
-            <p>{{$user->name}}</p>
-        </div>
+            <div>
+                <strong>Vartotojo vardas</strong>
+                <p>{{$user->name}}</p>
+            </div>
+            
+            <div>
+                <strong>El. paštas</strong>
+                <p>{{$user->email}}</p>
+            </div>
         
-        <div>
-            <strong>Email</strong>
-            <p>{{$user->email}}</p>
+            <a class = "button mt-4" href="/users/{{$user->id}}/edit">Redaguoti vartotojo duomenis</a>
+
         </div>
-    
-        <a class = "button mt-4" href="/users/{{$user->id}}/edit">Change user info</a>
+    </main>
 
-    </div>
-
+    @endif
 @endsection

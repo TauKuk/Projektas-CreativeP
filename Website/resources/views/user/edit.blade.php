@@ -2,53 +2,57 @@
 
 @section('content')
 
-    <div class="container">
+    @if ($user->id == Auth::user()->id)
+    <main> 
+        <div class="container">
 
-        <h1 class="mb-4">Edit user information</h1>
+            <h1 class="mb-4">Redaguoti vartotojo duomenis</h1>
 
-        <div>
-            <form action="/users/{{ $user->id }}" method="post">
-           
-            @method('PUT')
-
-            <div class = "mb-2">
-                <label for="name">New name</label>
-                <input type="text" name="name" autocomplete="off" value="{{ old('username') ?? $user->name }}">
-                @error('name') <div class="error"><p>{{$message}}</p></div> @enderror 
-            </div>
+            <div>
+                <form action="/users/{{ $user->id }}" method="post" class="edit-user">
             
-            <div class = "mb-2">
-                <label for="email">New Email</label>
-                <input type="text" name="email" autocomplete="off" value="{{ old('email') ?? $user->email }}">
-                @error('email') <div class="error"><p>{{$message}}</p></div> @enderror
-            </div>
-            
-            <!--
+                @method('PUT')
+
                 <div class = "mb-2">
-                    <label for="password">Password</label>
+                    <div><strong><label for="name">Naujas vartotojo vardas</label></strong></div>
+                    <input type="text" name="name" autocomplete="off" value="{{ old('username') ?? $user->name }}">
+                    @error('name') <div class="error"><p>{{$message}}</p></div> @enderror 
+                </div>
+                
+                <div class = "mb-2">
+                    <div><strong><label for="email">Naujas El. paštas</label></strong></div>
+                    <input type="text" name="email" autocomplete="off" value="{{ old('email') ?? $user->email }}">
+                    @error('email') <div class="error"><p>{{$message}}</p></div> @enderror
+                </div>
+                
+                <!-- <div class = "mb-2">
+                    <div><strong><label for="password">Slaptažodis</label></strong></div>
                     <input type="password" id="password" autocomplete="off" style="color: grey;">
                     @error('email') <div class="error"><p>{{$message}}</p></div> @enderror
                 </div>
                     
                 <div class = "mb-2">
-                    <label for="password">Confirm password</label>
+                    <div><strong><label for="password">Pakartoti slaptažodį</label></strong></div>
                     <input type="password" id="confirm_password" autocomplete="off" style="color: grey;">
                     @error('email') <div class="error"><p>{{$message}}</p></div> @enderror
-                </div>
-            -->  
-            @csrf
-            <button class="btn btn-primary">Confirm</button>
-            <button form="deleteForm" class="btn btn-dark">Delete profile</button> 
+                </div> -->
 
-            </form>
-
-            <form id="deleteForm" action="/users/{{ $user->id }}" method="post">
-
-                @method('DELETE')
                 @csrf
-                
-            </form>
-        </div>
-    </div>
+                <button class="btn btn-primary">Patvirtinti</button>
+                <button form="deleteForm" class="btn btn-dark">Ištrinti vartotoją</button> 
 
+                </form>
+
+                <form id="deleteForm" action="/users/{{ $user->id }}" method="post">
+
+                    @method('DELETE')
+                    @csrf
+                    
+                </form>
+            </div>
+        </div>
+    </main>
+
+       
+    @endif
 @endsection
