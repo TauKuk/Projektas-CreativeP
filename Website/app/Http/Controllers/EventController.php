@@ -10,6 +10,30 @@ use Intervention\Image\Facades\Image;
 
 class EventController extends Controller
 {
+    private function cmp($a, $b)
+    {
+        if ($a->start_date == $b->start_date) {
+            return 0;
+        }
+        
+        if (($a->status->color == "green" && $b->status->color == "blue") ||
+            ($a->status->color == "green" && $b->status->color == "red")  ||
+            ($a->status->color == "blue" && $b->status->color == "red")) 
+            return -1;
+
+        if (($a->status->color == "blue" && $b->status->color == "green") ||
+            ($a->status->color == "red" && $b->status->color == "green")  ||
+            ($a->status->color == "red" && $b->status->color == "blue")) 
+            return 1;
+        
+        if ($a->status->color == $b->status->color) {
+            if ($a->status->color == "red")
+               return ($a->end_date > $b->end_date) ? -1 : 1;
+            else                                                                        
+               return ($a->start_date < $b->start_date) ? -1 : 1;
+        }
+    }
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -21,14 +45,27 @@ class EventController extends Controller
 
         $eventStatus = [];
 
-        //Sukuria eventu Status objekta
-        foreach($events as $event) 
-            $eventStatus[] = $event->CreateEventStatus($event->start_date, $event->end_date);
+        //Sukuria eventu status
+        foreach($events as $event) {
+            if (strtotime($event->start_date) > strtotime("now + 3 hours"))
+            $event->status = (object) array("color" => "blue", "text" => "Renginys neprasidėjo", "image" => "/img/blue_circle.png"); 
 
-        //Susortina eventus pagal pradzios data
-        $events = $events->sortBy('start_date');
+            else if (strtotime($event->start_date) <= strtotime("now + 3 hours") && strtotime($event->end_date) >= strtotime("now + 3 hours"))
+            $event->status = (object) array("color" => "green", "text" => "Renginys vyksta šiuo metu", "image" => "/img/green_circle.png"); 
 
-        return view('event.index', compact('user', 'events', 'eventStatus'));
+            else 
+            $event->status = (object) array("color" => "red", "text" => "Renginys pasibaigęs", "image" => "/img/red_circle.png");  
+        }
+
+        //Susortina eventus pagal ju busena
+        
+        $events = (array) $events;
+        //DONT ASK
+        $events = $events["\x00*\x00items"];
+
+        usort($events, array($this, 'cmp'));
+
+        return view('event.index', compact('user', 'events'));
     }
 
     public function create(User $user)
@@ -91,9 +128,17 @@ class EventController extends Controller
     public function show(User $user, Event $event)
     {
         $index = 0;
-        $eventStatus[] = $event->CreateEventStatus($event->start_date, $event->end_date);
+        
+        if (strtotime($event->start_date) > strtotime("now + 3 hours"))
+        $event->status = (object) array("color" => "blue", "text" => "Renginys neprasidėjo", "image" => "/img/blue_circle.png"); 
 
-        return view('event.show', compact('event', 'user', 'eventStatus', 'index'));
+        else if (strtotime($event->start_date) <= strtotime("now + 3 hours") && strtotime($event->end_date) >= strtotime("now + 3 hours"))
+        $event->status = (object) array("color" => "green", "text" => "Renginys vyksta šiuo metu", "image" => "/img/green_circle.png"); 
+
+        else 
+        $event->status = (object) array("color" => "red", "text" => "Renginys pasibaigęs", "image" => "/img/red_circle.png");  
+
+        return view('event.show', compact('event', 'user', 'index'));
     }
 
     public function edit(User $user, Event $event)

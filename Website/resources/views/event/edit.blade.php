@@ -4,7 +4,7 @@
     @if ($user->id == Auth::user()->id && $user->id == $event->user_id)
     <main> 
         <div class="container">
-            <h1>Redaguoti {{ $event->title }}</h1>
+            <h1 class="event-form" style="margin-bottom: 0.5em;">Redaguoti {{ $event->title }}</h1>
 
             <div class="event-form">
                 <form action="/{{ $user->id }}/events/{{ $event->id }}" enctype="multipart/form-data" method="post" id="update_form">

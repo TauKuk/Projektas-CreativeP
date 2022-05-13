@@ -9,11 +9,17 @@
 
 .event_box{
     overflow: hidden;
-    padding-top:1em;
-    margin-top: 3em;
-    border-top: #333 solid 1px;
 
+    padding: 0.3em;
+    padding-top: 0.5em;
+    background-color: white;
     display: flex;
+}
+
+.event-wrapper {    
+    margin-top: 3em;
+    padding-top: 0.15em;
+    background: linear-gradient(265deg, rgba(241,0,196,1) 0%, rgba(175,24,180,1) 35%, rgba(96,50,204,1) 100%);
 }
 
 .image{

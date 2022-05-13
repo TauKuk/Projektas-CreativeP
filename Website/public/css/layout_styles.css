@@ -258,11 +258,32 @@ main {
 }
 
 .event-form {
-    width: 40%;
+    width: 80%;
+    margin: 0 auto;
 }
 
 @media only screen and (max-width: 1199px){
     .event-form {
         width: 100%;
+    }
+}
+
+@media(max-width: 672px) {
+    .logo-image {
+        display: none;
+    }
+}
+
+@media(max-width: 575px) {
+    .logo {
+        display: none;
+    }
+
+    .header {
+        justify-content: center;
+    }
+
+    .header-link {
+        margin: 0;
     }
 }

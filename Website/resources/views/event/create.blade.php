@@ -5,12 +5,7 @@
     @if ($user->id == Auth::user()->id )
     <main> 
         <div class="container">
-            <h1 v-title="LABAS" class="mb-4">Sukurti renginį</h1>
-
-            <div class="event-display">
-
-            </div>
-
+            <h1 style="margin-bottom: 0.5em;" class="event-form">Sukurti renginį</h1>
             <div class="event-form">
                 <form action="/{{ $user->id }}/events" enctype="multipart/form-data" method="post" id="create_form">
 
