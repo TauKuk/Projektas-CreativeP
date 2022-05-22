@@ -7,6 +7,17 @@
     color: red;   
 }
 
+body {
+    background: linear-gradient(75.7deg, rgb(34, 126, 34) 3.8%, rgb(99, 162, 17) 87.1%);
+}
+
+.container {
+    background: white;
+    padding: 0.1em 2em 1.5em 2em;
+    margin: 1em auto;
+    border-radius: 0.5rem;
+}
+
 .event_box{
     overflow: hidden;
     padding-top:1em;

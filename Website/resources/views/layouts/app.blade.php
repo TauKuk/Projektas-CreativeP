@@ -54,7 +54,7 @@
             <div class="header">
                 <div class="logo">
                         <a href="{{ url('/') }}">                 
-                            <img class="logo-image" src="{{ asset('/img/logo-image.svg') }}">
+                            <img class="logo-image" src="{{ asset('/img/GERIAUSIAS_LOGO.png') }}">
                             <img class="logo-text" src="{{ asset('/img/logo-text.png') }}">
                         </a>
                 </div>

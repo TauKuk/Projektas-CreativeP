@@ -1,6 +1,15 @@
 <div class="event-wrapper">
     <div class="event_box">
 
+        <!-- <div class="dragging">
+            <div class="drag-line">
+            </div>
+
+            <div class="drag-line">
+            </div>
+        </div> -->
+        
+
         <div class="image">
             <img src='{{ $event->ShowPicture() }}' class="border border-dark">
         </div>

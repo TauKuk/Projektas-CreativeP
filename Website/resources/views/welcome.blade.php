@@ -41,7 +41,7 @@
         <header>
             <div class="header" style="padding: 2em 10% 2em 10%;">
                 <a href="{{ url('/') }}" class="logo">          
-                    <img class="logo-image" style="height: 80px;" src="{{ asset('/img/logo-image.svg') }}">
+                    <img class="logo-image" style="height: 80px;" src="{{ asset('/img/GERIAUSIAS_LOGO.png') }}">
                     <img class="logo-text" style="height: 70px; margin-left: 1em;" src="{{ asset('/img/logo-text.png') }}">
                 </a>
 
