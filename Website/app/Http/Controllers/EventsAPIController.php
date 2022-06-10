@@ -9,15 +9,9 @@ use App\Models\User;
 class EventsAPIController extends Controller
 {
     public function index_events() {
-        $events = Event::all();
+        $events = Event::where("user_id", "1")->get();
 
         return response()->json($events);
-    }
-
-    public function index_users() {
-        $users = User::all()->pluck('id', 'name');
-
-        return response()->json($users);
     }
 
     public function image($picture) {

@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -101,9 +102,15 @@ class EventController extends Controller
 
         if (request()->has('picture'))
         {
-            $picturePath = $request->file('picture')->store('uploads', 'public');        
+            $path = '/uploads';
+            //Issaugoja nuotrauka i public folderi
+            if(!Storage::disk('public_uploads')->put($path, $request->file('picture'))) {
+                return false;
+            }
+            
+            $picturePath = "uploads/{$request->file('picture')->hashName()}";
+            $picture = Image::make("storage/{$picturePath}")->fit(115, 115);
 
-            $picture = Image::make(public_path("storage/{$picturePath}"))->fit(115, 115);
             $picture->save();
         }
 
@@ -203,12 +210,12 @@ class EventController extends Controller
     private function validateData()
     {
         return request()->validate([
-            'title' => ['required', 'string', 'max:30', 'min:1'],            
-            'country' => ['string', 'nullable', 'max:50'],
-            'city'=> ['string', 'nullable', 'max:50'],
+            'title' => ['required', 'string', 'max:100', 'min:1'],            
+            'country' => ['string', 'nullable', 'max:100'],
+            'city'=> ['string', 'nullable', 'max:100'],
             'start_date' => ['required', 'date'],            
             'end_date' => ['required', 'date', 'after:start_date'],            
-            'description' => ['string', 'nullable', 'max:255'],
+            'description' => ['string', 'nullable', 'max:1000'],
             'picture' => ['image', 'nullable', 'max:10240'],
         ]);
     }

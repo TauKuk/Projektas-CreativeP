@@ -3,7 +3,7 @@ const { app, BrowserWindow, TouchBarColorPicker } = require('electron');
 const path = require('path');
 
 var port = '8000', host = '127.0.0.1';
-const serverURL = `http:${host}:${port}`;
+const serverURL = `http://schemify.azuolynogimnazija.lt`;
 
 function createWindow() {
 

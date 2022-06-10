@@ -1,5 +1,5 @@
 <div class="pt-2 pb-2">
-	<label class="font-weight-bold" for="countries"><strong>Select Country</strong></label>
+	<label class="font-weight-bold" for="countries"><strong>Pasirink šalį</strong></label>
 	<br>
 	<select class="pt-4 pb-4 countries js-example-basic-single js-states form-control" id="country" name="country" form="{{ $form }}" >
 		<option value="{{ old('country') ?? ((isset($event))? $event->country : null)}}">{{ old('country') ?? ((isset($event))? $event->country : null)}}</option>
@@ -8,7 +8,7 @@
 </div>
 
 <div class="pt-2 pb-2">
-	<label class="font-weight-bold" for="cities"><strong>Select City</strong></label>
+	<label class="font-weight-bold" for="cities"><strong>Pasirink miestą</strong></label>
 	<br>
 	<select class="pt-4 pb-4 cities js-example-basic-single js-states form-control" id="city" name="city" form="{{ $form }}">
 		<option value="{{ old('city') ?? ((isset($event))? $event->city : null)}}">{{ old('city') ?? ((isset($event))? $event->city : null)}}</option>
@@ -21,7 +21,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.0/umd/popper.min.js"></script>
 
 <script type="text/javascript">
-	const base= "http://localhost:8888/index.php";
+	const base= "http://68.183.132.246";
 	const country_el = $('#country');
 	/**
 	 * Function to map the API data in select format

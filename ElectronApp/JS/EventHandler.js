@@ -1,5 +1,5 @@
 const head = "127.0.0.1", port = "8000";
-const URL = `http://${head}:${port}`;
+const URL = `http://schemify.azuolynogimnazija.lt`;
 
 function updateHTML(event) {
     eventHTML = "";

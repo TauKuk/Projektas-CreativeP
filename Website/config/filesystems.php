@@ -29,6 +29,10 @@ return [
     */
 
     'disks' => [
+        'public_uploads' => [
+            'driver' => 'local',
+            'root'   => getcwd() . '/storage',
+        ],
 
         'local' => [
             'driver' => 'local',

@@ -11,7 +11,7 @@
 
                     <div class="form-group">
                         <label class="font-weight-bold" for="title">Renginio pavadinimas</label>
-                        <input type="text" name="title" class="form-control" autocomplete="off" placeholder="Įvesktie renginio pavadinimą" maxlength="30" value="{{ old('title') }}">
+                        <input type="text" name="title" class="form-control" autocomplete="off" placeholder="Įvesktie renginio pavadinimą" maxlength="100" value="{{ old('title') }}">
                         @error('title') <div class="font-weight-bold" style="color:red;"><p>{{ $message }}</p></div> @enderror
                     </div>
 
@@ -31,7 +31,7 @@
 
                     <div class="form-group">
                         <label class="font-weight-bold" for="description">Renginio aprašymas</label>
-                        <textarea name="description" class="form-control" autocomplete="off" maxlength="255" placeholder="Įvesktie renginio aprašymą" style="min-height: 4em; max-height: 10em;"></textarea>
+                        <textarea name="description" class="form-control" autocomplete="off" maxlength="1000" placeholder="Įvesktie renginio aprašymą" style="min-height: 4em; max-height: 10em; white-space: pre-wrap;">{{ old('description') }}</textarea>
                         @error('description') <div class="font-weight-bold" style="color:red;"><p>{{ $message }}</p></div> @enderror
                     </div>
 

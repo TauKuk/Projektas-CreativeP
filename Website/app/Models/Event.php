@@ -32,6 +32,11 @@ class Event extends Model
 
     public function ShowPicture()
     {
-        return (file_exists("storage/$this->picture") && $this->picture)? "/storage/$this->picture" : "/img/default_picture.png";
+        return "/storage/$this->picture";
+    }
+
+    public function PictureExists()
+    {
+        return (file_exists("storage/$this->picture") && $this->picture);
     }
 }

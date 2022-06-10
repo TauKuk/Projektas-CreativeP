@@ -262,16 +262,30 @@ main {
     margin: 0 auto;
 }
 
+.name {
+    display: none;
+}
+
 @media only screen and (max-width: 1199px){
     .event-form {
         width: 100%;
     }
 }
 
-@media(max-width: 672px) {
+@media(max-width: 900px) {
     .logo-image {
         display: none;
     }
+}
+
+@media(max-width: 860px) {
+    .promo-text {
+        display: none;
+    }
+    .landing {
+        width: 100%;
+    }
+
 }
 
 @media(max-width: 575px) {
@@ -279,11 +293,18 @@ main {
         display: none;
     }
 
+    .name {
+        display: block;
+    }
+    .promo-login {
+        display: none;
+    }
+    
     .header {
         justify-content: center;
     }
 
     .header-link {
-        margin: 0;
+        margin-left: 2em;
     }
 }

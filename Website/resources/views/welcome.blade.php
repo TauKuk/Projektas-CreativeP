@@ -66,7 +66,7 @@
         </header>
         
         <div class="gradient-card" style="align-items: center;">
-            <div style="margin-right: auto;">
+            <div style="margin-right: auto;" class="promo-text">
                 <div class="intro-text-big">PLANUOK ATEITĮ DABAR</div>
                 <div class="intro-text-list">
                     <ul>
@@ -116,7 +116,8 @@
                         </div>
 
                     @else
-                        <div>Turi paskyrą? Prisijunk!</div> 
+                        <div class="name" style="font-size: 3rem;">SCHEMIFY</div>
+                        <div class="promo-login">Turi paskyrą? Prisijunk!</div> 
                         <div style="margin-top: 0.5em;">    
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
