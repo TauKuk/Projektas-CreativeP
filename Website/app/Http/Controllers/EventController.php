@@ -177,10 +177,16 @@ class EventController extends Controller
 
         if (request()->has('picture'))
         {
-            $picturePath = $request->file('picture')->store('uploads', 'public');    
-                
-            $picture = Image::make(public_path("storage/{$picturePath}"))->fit(115, 115);
-            $picture->save(); 
+            $path = '/uploads';
+            //Issaugoja nuotrauka i public folderi
+            if(!Storage::disk('public_uploads')->put($path, $request->file('picture'))) {
+                return false;
+            }
+            
+            $picturePath = "uploads/{$request->file('picture')->hashName()}";
+            $picture = Image::make("storage/{$picturePath}")->fit(115, 115);
+
+            $picture->save();
         }
 
         else if ($event->picture) $picturePath = $event->picture; 
