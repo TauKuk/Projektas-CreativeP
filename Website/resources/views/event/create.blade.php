@@ -15,7 +15,11 @@
                         @error('title') <div class="font-weight-bold" style="color:red;"><p>{{ $message }}</p></div> @enderror
                     </div>
 
-                    @include("place_picker", ["form" => "create_form"])
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="place">Renginio vieta</label>
+                        <input type="text" name="place" class="form-control" autocomplete="off" placeholder="Įvesktie renginio vietą" maxlength="100" value="{{ old('place') }}">
+                        @error('place') <div class="font-weight-bold" style="color:red;"><p>{{ $message }}</p></div> @enderror
+                    </div>
 
                     <div class="form-group">
                         <label class="font-weight-bold" for="start_date">Renginio pradžios data</label>

@@ -65,14 +65,13 @@ class EventController extends Controller
         $events = $events["\x00*\x00items"];
 
         usort($events, array($this, 'cmp'));
-
         return view('event.index', compact('user', 'events'));
     }
 
     public function create(User $user)
     {
-        $current_date = date("Y-m-d", strtotime( "now" )) . "T" . date(("H:i"), strtotime("now + 3 hours"));
-        
+        $current_date = date("Y-m-d H:i", strtotime( "now + 3 hours" ));
+
         return view('event.create', compact('user', 'current_date'));
     }
 
@@ -87,18 +86,7 @@ class EventController extends Controller
         $data = $this->validateData();
 
         // Jei neranda ivestos salies, jos reiksme nustato null
-        if (!array_key_exists("country", $data))
-        {
-            $countryNull = array("country" => null);
-            $data = array_merge($data, $countryNull);
-        }  
-
-        // Jei neranda ivesto miesto, jo reiksme nustato null
-        if (!array_key_exists("city", $data))
-        {
-            $cityNull = array("city" => null);
-            $data = array_merge($data, $cityNull);
-        }  
+        if (!array_key_exists("place", $data)) $data['place'] = null;
 
         if (request()->has('picture'))
         {
@@ -118,8 +106,7 @@ class EventController extends Controller
 
         $event = auth()->user()->event()->create([
             'title' => $data['title'],
-            'country' => $data['country'],
-            'city' => $data['city'],
+            'place' => $data['place'],
             'start_date' => $data['start_date'], 
             'end_date' => $data['end_date'],
             'description' => $data['description'],
@@ -149,10 +136,11 @@ class EventController extends Controller
     }
 
     public function edit(User $user, Event $event)
-    {        
-        $current_date = date("Y-m-d", strtotime( "now" )) . "T" . date(("H:i"), strtotime("now + 3 hours"));
-        $start_date = date("Y-m-d", strtotime( $event->start_date )) . "T" . date(("H:i"), strtotime( $event->start_date ));
-        $end_date = date("Y-m-d", strtotime( $event->end_date )) . "T" . date(("H:i"), strtotime( $event->end_date ));
+    {   
+        $current_date = date("Y-m-d H:i", strtotime( "now + 3 hours" ));
+        $start_date = date("Y-m-d H:i", strtotime( $event->start_date ));
+        if ($event->end_date) $end_date = date("Y-m-d H:i", strtotime( $event->end_date ));
+        else $end_date = null;
 
         return view('event.edit', compact('event', 'user', 'end_date', 'start_date', 'current_date'));
     }
@@ -162,18 +150,7 @@ class EventController extends Controller
         $data = $this->validateData();
 
         // Jei neranda ivestos salies, jos reiksme nustato null
-        if (!array_key_exists("country", $data))
-        {
-            $countryNull = array("country" => null);
-            $data = array_merge($data, $countryNull);
-        }  
-
-        // Jei neranda ivesto miesto, jo reiksme nustato null
-        if (!array_key_exists("city", $data))
-        {
-            $cityNull = array("city" => null);
-            $data = array_merge($data, $cityNull);
-        }  
+        if (!array_key_exists("place", $data)) $data['place'] = null;
 
         if (request()->has('picture'))
         {
@@ -195,8 +172,7 @@ class EventController extends Controller
 
         $event->update([
             'title' => $data['title'],
-            'country' => $data['country'],
-            'city' => $data['city'],
+            'place' => $data['place'],
             'start_date' => $data['start_date'], 
             'end_date' => $data['end_date'],
             'description' => $data['description'],
@@ -217,10 +193,9 @@ class EventController extends Controller
     {
         return request()->validate([
             'title' => ['required', 'string', 'max:100', 'min:1'],            
-            'country' => ['string', 'nullable', 'max:100'],
-            'city'=> ['string', 'nullable', 'max:100'],
+            'place' => ['string', 'nullable', 'max:100'],
             'start_date' => ['required', 'date'],            
-            'end_date' => ['required', 'date', 'after:start_date'],            
+            'end_date' => ['nullable', 'date', 'after:start_date'],            
             'description' => ['string', 'nullable', 'max:1000'],
             'picture' => ['image', 'nullable', 'max:10240'],
         ]);

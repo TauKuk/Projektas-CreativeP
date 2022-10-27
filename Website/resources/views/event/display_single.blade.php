@@ -9,6 +9,7 @@
             </div>
         </div> -->
         
+
         @if($event->PictureExists())
         <div class="image">
             <img src='{{ $event->ShowPicture() }}' class="border border-dark">
@@ -21,10 +22,21 @@
                 {{ $event->title }}
                 </div>
                 
-                <div class="date">{{ $event->start_date }} 
-                    @if($event->start_date != $event->end_date)
-                        - {{ $event->end_date }}</div>
+                <div class="date">
+                    <!-- substr naudojam kad nuimt minutes, valandas ir sekundes -->
+
+                    <!-- Tikrina ar sutampa diena -->
+                    @if(substr($event->start_date, 0, -8) == substr($event->end_date, 0, -8))
+                        {{ substr($event->start_date, 0, -3) }}-{{ substr($event->end_date, 11, -3) }}
+
+                    @else
+                        {{ substr($event->start_date, 0, -3) }} 
+
+                        @if($event->end_date && $event->start_date != $event->end_date)
+                            - {{ substr($event->end_date, 0, -3) }} 
+                        @endif
                     @endif
+                </div>
             </div>
 
             <p class="description">
@@ -32,8 +44,7 @@
                 
                 <div class="place-status">
                     <div class="place">
-                        @if($event->country) <div>Šalis: {{ $event->country }}</div>@endif 
-                        @if($event->city) <div>Miestas: {{ $event->city }}</div> @endif 
+                        @if($event->place) <div>Vieta: {{ $event->place }}</div>@endif 
                     </div>  
 
                     <div class="status">
